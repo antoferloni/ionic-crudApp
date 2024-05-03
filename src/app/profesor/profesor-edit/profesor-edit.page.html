@@ -1,0 +1,80 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> {{ isNew ? 'Nuevo' : 'Editar'}} Profesor </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profesor-list"></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="primary">
+      <ion-button id="present-alert" *ngIf="!isNew" fill="solid" (click)="eliminarProfesor()" color="danger">
+        Eliminar
+      </ion-button>
+    </ion-buttons>
+    <ion-alert
+      trigger="present-alert"
+      header="Seguro deseas eliminar?"
+      [buttons]="alertButtons"
+      (didDismiss)="dismissed($event)"
+    ></ion-alert>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-input label="ID" [(ngModel)]="id" readonly="true" disabled="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Codigo:</ion-label>
+      <ion-input required #codigoInput="ngModel" [(ngModel)]="profesor.codigo" type="number"></ion-input>
+    </ion-item>
+      <div class="error-message">
+        <ion-text *ngIf="codigoInput?.invalid && codigoInput?.touched" color="danger">
+          <p *ngIf="codigoInput?.errors?.['required']">Este campo es obligatorio</p>
+        </ion-text>
+      </div>
+
+    <ion-item>
+      <ion-label>Nombre:</ion-label>
+      <ion-input required #nombreInput="ngModel" [(ngModel)]="profesor.nombre" type="text"></ion-input>
+    </ion-item>
+    <div class="error-message">
+      <ion-text *ngIf="nombreInput?.invalid && nombreInput?.touched" color="danger">
+        <p *ngIf="nombreInput?.errors?.['required']">Este campo es obligatorio</p>
+      </ion-text>
+    </div>
+
+    <ion-item>
+      <ion-label>Apellido:</ion-label>
+      <ion-input required #apellidoInput="ngModel" type="text" [(ngModel)]="profesor.apellido"></ion-input>
+    </ion-item>
+    <div class="error-message">
+      <ion-text *ngIf="apellidoInput?.invalid && apellidoInput?.touched" color="danger">
+        <p *ngIf="apellidoInput?.errors?.['required']">Este campo es obligatorio</p>
+      </ion-text>
+    </div>
+
+    <ion-item>
+      <ion-label>Telefono:</ion-label>
+      <ion-input required #telefonoInput="ngModel" type="number" [(ngModel)]="profesor.telefono"></ion-input>
+    </ion-item>
+    <div class="error-message">
+      <ion-text *ngIf="telefonoInput.invalid && telefonoInput.touched" color="danger">
+        <p *ngIf="telefonoInput?.errors?.['required']">Este campo es obligatorio</p>
+      </ion-text>
+    </div>
+
+    <ion-item>
+      <ion-label>Activo</ion-label>
+      <ion-toggle  [checked]="true" [(ngModel)]="profesor.activo" color="primary"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+  <ion-button fill="solid" (click)="guardarProfesor()" color="primary" class="ion-margin-top ion-margin-bottom ion-margin-horizontal">
+    Guardar
+  </ion-button>
+ 
+</ion-content>

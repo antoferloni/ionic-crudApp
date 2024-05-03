@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Lista de Profesores </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+    <ion-item [routerLink]="['/profesor-edit/' + profesor.id]" *ngFor="let profesor of listaProfesor">
+     <ion-label> {{profesor.codigo}} - {{profesor.nombre}} {{profesor.apellido}} - {{ profesor.activo ? 'Activo' : 'Inactivo' }}  </ion-label> 
+    </ion-item>
+  </ion-list>
+
+  <ion-fab  slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['/profesor-edit/new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
